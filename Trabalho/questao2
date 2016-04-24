@@ -1,0 +1,92 @@
+grammar cyclomatic complexity;
+
+prog: stat+:
+
+stat:   expr NEWLINE                # printExpr
+    |   ID '=' expr NEWLINE         # assign
+    |   NEWLINE                     # blank
+    ;
+
+stat: 'while' '('expr ')' stat
+	| '{'stat*'}'
+	| 'if' '(' expr ')' stat
+	| '{'stat*'}'
+	| 'else if' '(' expr ')' stat
+	| '{'stat*'}'
+    |   'for' '(' forControl ')' statement
+    |   'do' statement 'while' parExpression ';'
+    |   'try' block
+        ( catches 'finally' block
+        | catches
+        | 'finally' block
+        )
+    |   'switch' parExpression switchBlock
+
+    ;
+
+catches
+    :   catchClause (catchClause)*
+    ;
+
+catchClause
+    :   'catch' '(' formalParameter ')' block
+    ;
+	
+forControl
+    :   enhancedForControl
+    |   forInit? ';' expression? ';' forUpdate?
+    ;
+
+forInit
+    :   localVariableDeclaration
+    |   expressionList
+    ;
+
+enhancedForControl
+    :   variableModifiers type Identifier ':' expression
+    ;
+
+forUpdate
+    :   expressionList
+    ;
+	
+parExpression
+    :   '(' expression ')'
+    ;
+
+switchBlock
+    :   '{' switchBlockStatementGroup* switchLabel* '}'
+    ;
+
+switchBlockStatementGroup
+    :   switchLabel+ blockStatement*
+    ;
+
+switchLabel
+    :   'case' constantExpression ':'
+    |   'case' enumConstantName ':'
+    |   'default' ':'
+    ;
+
+expr: ID '[' expr ']'
+	| '(' expr ')'
+	| INT
+	;
+
+expressionList
+    :   expression (',' expression)*
+    ;
+
+	
+IF: 'if';
+ELSE IF: 'else if';
+SWITCH: 'switch';
+FOR: 'for';
+DO: 'do'
+WHILE: 'while'
+CATCH: 'catch'
+?
+ID  :   [a-zA-Z]+ ;      // match identifiers
+INT :   [0-9]+ ;         // match integers
+NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
+WS  :   [ \t]+ -> skip ; // toss out whitespace	
