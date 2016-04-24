@@ -7,8 +7,9 @@ stat: command NEWLINE   # printCmd
     | NEWLINE           # blank
     ;
 
-command: basic opcmd=(ENTAO | APOS) basic   # cmd
-       | basic                              # basicCmd
+command: basic ENTAO basic   # cmdEntao
+       | basic APOS basic    # cmdApos
+       | basic               # cmdBasic
        ;
 
 basic : opbasic=(FRENTE | ESQUERDA | DIREITA | TRAS) N  # opBasic

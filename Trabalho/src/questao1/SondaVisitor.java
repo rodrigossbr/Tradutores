@@ -30,19 +30,26 @@ public interface SondaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBlank(SondaParser.BlankContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code cmd}
+	 * Visit a parse tree produced by the {@code cmdEntao}
 	 * labeled alternative in {@link SondaParser#command}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCmd(SondaParser.CmdContext ctx);
+	T visitCmdEntao(SondaParser.CmdEntaoContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code basicCmd}
+	 * Visit a parse tree produced by the {@code cmdApos}
 	 * labeled alternative in {@link SondaParser#command}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBasicCmd(SondaParser.BasicCmdContext ctx);
+	T visitCmdApos(SondaParser.CmdAposContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code cmdBasic}
+	 * labeled alternative in {@link SondaParser#command}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCmdBasic(SondaParser.CmdBasicContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code opBasic}
 	 * labeled alternative in {@link SondaParser#basic}.
