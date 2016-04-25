@@ -3,7 +3,7 @@ DENTRO DA PASTA src
 
 
 // executa o antlr, especificando o pacote para geracao das classes
-antlr4 -no-listener -visitor -package questao1  questao2/Sonda.g4
+antlr4 -no-listener -visitor -package questao1  questao1/Sonda.g4
 
 // compila todo codigo em java
 javac questao1/*.java

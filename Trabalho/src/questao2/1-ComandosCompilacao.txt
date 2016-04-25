@@ -11,4 +11,4 @@ javac questao2/*.java
 
 
 // executa a aplicacao
-java ExecutaCiclomatica t.expr
+java questao2.ExecutaCiclomatica questao2/t.expr
