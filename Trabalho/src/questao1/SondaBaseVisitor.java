@@ -1,4 +1,5 @@
 // Generated from Sonda.g4 by ANTLR 4.5.3
+package questao1;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**

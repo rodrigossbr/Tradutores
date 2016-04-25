@@ -1,4 +1,4 @@
-
+package questao1;
 
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;

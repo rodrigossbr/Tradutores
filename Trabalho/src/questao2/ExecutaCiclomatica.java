@@ -1,26 +1,27 @@
-package questao1;
+package questao2;
 
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-public class ExecutaSonda {
+public class ExecutaCiclomatica {
     public static void main(String[] args) throws Exception {
         String inputFile = null;
         if ( args.length>0 ) inputFile = args[0];
         InputStream is = System.in;
         if ( inputFile!=null ) is = new FileInputStream(inputFile);
         ANTLRInputStream input = new ANTLRInputStream(is);
-        SondaLexer lexer = new SondaLexer(input);
+        CiclomaticaLexer lexer = new CiclomaticaLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        SondaParser parser = new SondaParser(tokens);
+        CiclomaticaParser parser = new CiclomaticaParser(tokens);
         ParseTree tree = parser.prog(); // parse; start at prog <label id="code.tour.main.6"/>
         //System.out.println(tree.toStringTree(parser)); // print tree as text <label id="code.tour.main.7"/>
 
-        SondaEvalVisitor sondaEvalVisitor = new SondaEvalVisitor();
-        sondaEvalVisitor.visit(tree);
-        sondaEvalVisitor.PrintTotalDistance();
+        CiclomaticaEvalVisitor ciclomaticaEvalVisitor = new CiclomaticaEvalVisitor();
+        ciclomaticaEvalVisitor.visit(tree);
     }
 }
 

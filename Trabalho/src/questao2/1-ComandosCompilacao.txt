@@ -1,0 +1,14 @@
+
+
+DENTRO DA PASTA src
+
+
+// executa o antlr, especificando o pacote para geracao das classes
+antlr4 -no-listener -visitor -package questao2  questao2/Ciclomatica.g4
+
+// compila todo codigo em java
+javac questao2/*.java
+
+
+// executa a aplicacao
+java ExecutaCiclomatica t.expr
