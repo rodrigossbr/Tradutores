@@ -1,4 +1,5 @@
-// Generated from Ciclomatica.g4 by ANTLR 4.5.3
+// Generated from questao2/Ciclomatica.g4 by ANTLR 4.5.3
+package questao2;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -24,6 +25,13 @@ public class CiclomaticaBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitStat(CiclomaticaParser.StatContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitTernaryBlock(CiclomaticaParser.TernaryBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

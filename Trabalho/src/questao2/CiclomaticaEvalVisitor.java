@@ -1,4 +1,4 @@
-import org.antlr.v4.runtime.misc.Pair;
+package questao2;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,40 +8,66 @@ import java.util.Map;
  */
 public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
 
-    private Map<Integer, Integer> memory = new HashMap<Integer, Integer>();
+    private enum TypesVisit {
+        IF,
+        ELSEIF,
+        CASE,
+        FOR,
+        DO,
+        WHILE,
+        CATCH,
+        TERNARY
+    }
 
-    public void PrintTotalComplexity()
-    {
-	Integer total =0;
+    private Map<TypesVisit, Integer> memory = new HashMap<>();
 
-	for (Integer v: memory.values())
-	{
-	    total +=v;
-	}	
+    private void AddVisit(TypesVisit type){
+        if (memory.containsKey(type)) {
+            memory.merge(type, 1, Integer::sum);
+        } else {
+            memory.put(type, 1);
+        }
+    }
 
-	System.out.println("A complexidade Ciclomatica:"+ total);
-    }    
+    public void PrintResults(){
+
+        System.out.println("Total de IFs");
+
+        for (Map.Entry<TypesVisit, Integer> entry : memory.entrySet())
+        {
+            System.out.println(" Total para: " + entry.getKey() + " eh " + entry.getValue());
+        }
+
+    }
 
     @Override
-    public Integer visitWhileblock(CiclomaticaParser.WhileblockContext ctx) {
+    public Integer visitTernaryBlock(CiclomaticaParser.TernaryBlockContext ctx) {
+
+        AddVisit(TypesVisit.TERNARY);
+
         return visitChildren(ctx);
     }
 
-    @Override public Integer visitIfblock(CiclomaticaParser.IfblockContext ctx) 
-    {
-        Integer value =1;
-        return value;
+    @Override
+    public Integer visitWhileblock(CiclomaticaParser.WhileblockContext ctx) {
+
+        AddVisit(TypesVisit.WHILE);
+
+        return visitChildren(ctx);
     }
 
     @Override
-    public Integer visitElseifblock(CiclomaticaParser.ElseifblockContext ctx) 
-    {
-        Integer value = 1;
-        return value;
+    public Integer visitIfblock(CiclomaticaParser.IfblockContext ctx) {
+
+        AddVisit(TypesVisit.IF);
+
+        return visitChildren(ctx);
     }
 
     @Override
-    public Integer visitCatches(CiclomaticaParser.CatchesContext ctx) {
+    public Integer visitElseifblock(CiclomaticaParser.ElseifblockContext ctx) {
+
+        AddVisit(TypesVisit.ELSEIF);
 
         return visitChildren(ctx);
     }
@@ -49,35 +75,15 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
     @Override
     public Integer visitCatchClause(CiclomaticaParser.CatchClauseContext ctx) {
 
+        AddVisit(TypesVisit.CATCH);
+
         return visitChildren(ctx);
     }
 
     @Override
     public Integer visitForControl(CiclomaticaParser.ForControlContext ctx) {
 
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitForInit(CiclomaticaParser.ForInitContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitForExpression(CiclomaticaParser.ForExpressionContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitForUpdate(CiclomaticaParser.ForUpdateContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitParExpression(CiclomaticaParser.ParExpressionContext ctx) {
+        AddVisit(TypesVisit.FOR);
 
         return visitChildren(ctx);
     }
@@ -85,52 +91,7 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
     @Override
     public Integer visitSwitchLabel(CiclomaticaParser.SwitchLabelContext ctx) {
 
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitSwitchBlock(CiclomaticaParser.SwitchBlockContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitSwitchBlockStatementGroup(CiclomaticaParser.SwitchBlockStatementGroupContext ctx) {
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitBlockStatement(CiclomaticaParser.BlockStatementContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitBlock(CiclomaticaParser.BlockContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitCondition(CiclomaticaParser.ConditionContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitExpr(CiclomaticaParser.ExprContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitExpression(CiclomaticaParser.ExpressionContext ctx) {
-
-        return visitChildren(ctx);
-    }
-
-    @Override
-    public Integer visitExpressionList(CiclomaticaParser.ExpressionListContext ctx) {
+        AddVisit(TypesVisit.CASE);
 
         return visitChildren(ctx);
     }

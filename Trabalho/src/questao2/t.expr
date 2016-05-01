@@ -1,9 +1,44 @@
-if (a > 10 )
-{
-    X();
+public class MinMax4 {
+    public static void main(String[] args) {
 
-    if (b < 5)
-    { 
-      Y();
+    Scanner sc = new Scanner(System.in);
+            int num;
+            int minimo = Integer.MAX_VALUE;
+            int maximo = Integer.MIN_VALUE;
+
+            num = sc.nextInt();
+            if (num < minimo) {
+                minimo = num;
+            }
+            if (num > maximo) {
+                maximo = num;
+            }
+
+            num = sc.nextInt();
+            if (num < minimo) {
+                minimo = num;
+            }
+            if (num > maximo) {
+                maximo = num;
+            }
+
+            num = sc.nextInt();
+            if (num < minimo) {
+                minimo = num;
+            }
+            if (num > maximo) {
+                maximo = num;
+            }
+
+
+        for (int i = 0; i < NUMEROS_A_LER; i++) {
+            int num = sc.nextInt();
+            if (num < minimo) {
+                minimo = num;
+            }
+            if (num > maximo) {
+                maximo = num;
+            }
+        }
     }
 }

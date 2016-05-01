@@ -1,4 +1,5 @@
-// Generated from Ciclomatica.g4 by ANTLR 4.5.3
+// Generated from questao2/Ciclomatica.g4 by ANTLR 4.5.3
+package questao2;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -21,6 +22,12 @@ public interface CiclomaticaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStat(CiclomaticaParser.StatContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CiclomaticaParser#ternaryBlock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTernaryBlock(CiclomaticaParser.TernaryBlockContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CiclomaticaParser#whileblock}.
 	 * @param ctx the parse tree

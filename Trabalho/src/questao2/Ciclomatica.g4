@@ -3,24 +3,24 @@ grammar Ciclomatica;
 prog: stat+;
 
 
-stat:    'while' '('expr')' stat
-	| whileblock
+stat:    'while' '('expr')'  whileblock stat
+    | ifexpr '?' ternaryBlock
 	| 'if' '(' ifexpr ')' stat
 	| 'if' '(' ifexpr ')' ifblock (stat)? 
-        | 'else if' '(' expr ')' stat
-	| elseifblock
-        | 'for' '(' forControl ')' stat
-        | 'do' stat 'while' parExpression ';'
-        | 'try' block ( catches 'finally' block
-        | catches
-        | 'finally' block )
-        | 'switch' '('INT')' switchBlock
+    | 'else if' '(' expr ')' elseifblock stat
+    | 'for' '(' forControl ')' stat
+    | 'do' stat 'while' parExpression ';'
+    | 'try' block ( catches 'finally' block
+    | catches
+    | 'finally' block )
+    | 'switch' '('INT')' switchBlock
 	| ID '(' ')' ';'
-        | NEWLINE ID '(' ')' ';'
-        | expr NEWLINE
-        | ID '=' expr NEWLINE
-        | NEWLINE
-        ;
+    | NEWLINE ID '(' ')' ';'
+    | expr NEWLINE
+    | ID '=' expr NEWLINE
+    | NEWLINE
+    ;
+ternaryBlock: ID ' : ' ID ;
 
 whileblock : '{' stat* '}' ;
 
