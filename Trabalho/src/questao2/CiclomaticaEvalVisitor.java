@@ -31,7 +31,7 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
 
     public void PrintResults(){
 
-        System.out.println("Total de IFs");
+        
 
         for (Map.Entry<TypesVisit, Integer> entry : memory.entrySet())
         {
