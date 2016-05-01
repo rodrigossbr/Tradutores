@@ -1,5 +1,6 @@
 package questao2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,42 +9,27 @@ import java.util.Map;
  */
 public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
 
-    private enum TypesVisit {
-        IF,
-        ELSEIF,
-        CASE,
-        FOR,
-        DO,
-        WHILE,
-        CATCH,
-        TERNARY
-    }
+    private ArrayList<Method> methods = new ArrayList<>();
 
-    private Map<TypesVisit, Integer> memory = new HashMap<>();
-
-    private void AddVisit(TypesVisit type){
-        if (memory.containsKey(type)) {
-            memory.merge(type, 1, Integer::sum);
-        } else {
-            memory.put(type, 1);
-        }
-    }
+    private Method actualMethod;
 
     public void PrintResults(){
 
-        
+        // este add deve ser colocado no visitor de cada metodo
+        // dando um new com  com o nome do metodo visitado
+        actualMethod = new Method("Main");
+        methods.add(actualMethod);
 
-        for (Map.Entry<TypesVisit, Integer> entry : memory.entrySet())
+        for (Method m : methods)
         {
-            System.out.println(" Total para: " + entry.getKey() + " eh " + entry.getValue());
+            m.PrintResults();
         }
-
     }
 
     @Override
     public Integer visitTernaryBlock(CiclomaticaParser.TernaryBlockContext ctx) {
 
-        AddVisit(TypesVisit.TERNARY);
+        actualMethod.AddVisit(Method.TypesVisit.TERNARY);
 
         return visitChildren(ctx);
     }
@@ -51,7 +37,7 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
     @Override
     public Integer visitWhileblock(CiclomaticaParser.WhileblockContext ctx) {
 
-        AddVisit(TypesVisit.WHILE);
+        actualMethod.AddVisit(Method.TypesVisit.WHILE);
 
         return visitChildren(ctx);
     }
@@ -59,7 +45,7 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
     @Override
     public Integer visitIfblock(CiclomaticaParser.IfblockContext ctx) {
 
-        AddVisit(TypesVisit.IF);
+        actualMethod.AddVisit(Method.TypesVisit.IF);
 
         return visitChildren(ctx);
     }
@@ -67,7 +53,7 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
     @Override
     public Integer visitElseifblock(CiclomaticaParser.ElseifblockContext ctx) {
 
-        AddVisit(TypesVisit.ELSEIF);
+        actualMethod.AddVisit(Method.TypesVisit.ELSEIF);
 
         return visitChildren(ctx);
     }
@@ -75,7 +61,7 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
     @Override
     public Integer visitCatchClause(CiclomaticaParser.CatchClauseContext ctx) {
 
-        AddVisit(TypesVisit.CATCH);
+        actualMethod.AddVisit(Method.TypesVisit.CATCH);
 
         return visitChildren(ctx);
     }
@@ -83,7 +69,7 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
     @Override
     public Integer visitForControl(CiclomaticaParser.ForControlContext ctx) {
 
-        AddVisit(TypesVisit.FOR);
+        actualMethod.AddVisit(Method.TypesVisit.FOR);
 
         return visitChildren(ctx);
     }
@@ -91,7 +77,7 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
     @Override
     public Integer visitSwitchLabel(CiclomaticaParser.SwitchLabelContext ctx) {
 
-        AddVisit(TypesVisit.CASE);
+        actualMethod.AddVisit(Method.TypesVisit.CASE);
 
         return visitChildren(ctx);
     }
