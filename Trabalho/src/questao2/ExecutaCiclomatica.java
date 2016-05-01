@@ -1,5 +1,3 @@
-package questao2;
-
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -22,6 +20,6 @@ public class ExecutaCiclomatica {
 
         CiclomaticaEvalVisitor ciclomaticaEvalVisitor = new CiclomaticaEvalVisitor();
         ciclomaticaEvalVisitor.visit(tree);
+        ciclomaticaEvalVisitor.PrintTotalComplexity();
     }
 }
-
