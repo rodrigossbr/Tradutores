@@ -1,5 +1,3 @@
-package questao2;
-
 import org.antlr.v4.runtime.misc.Pair;
 
 import java.util.HashMap;
@@ -12,20 +10,34 @@ public class CiclomaticaEvalVisitor extends CiclomaticaBaseVisitor<Integer> {
 
     private Map<Integer, Integer> memory = new HashMap<Integer, Integer>();
 
+    public void PrintTotalComplexity()
+    {
+	Integer total =0;
+
+	for (Integer v: memory.values())
+	{
+	    total +=v;
+	}	
+
+	System.out.println("A complexidade Ciclomatica:"+ total);
+    }    
+
     @Override
     public Integer visitWhileblock(CiclomaticaParser.WhileblockContext ctx) {
         return visitChildren(ctx);
     }
 
-    @Override public Integer visitIfblock(CiclomaticaParser.IfblockContext ctx) {
-
-        return visitChildren(ctx);
+    @Override public Integer visitIfblock(CiclomaticaParser.IfblockContext ctx) 
+    {
+        Integer value =1;
+        return value;
     }
 
     @Override
-    public Integer visitElseifblock(CiclomaticaParser.ElseifblockContext ctx) {
-
-        return visitChildren(ctx);
+    public Integer visitElseifblock(CiclomaticaParser.ElseifblockContext ctx) 
+    {
+        Integer value = 1;
+        return value;
     }
 
     @Override

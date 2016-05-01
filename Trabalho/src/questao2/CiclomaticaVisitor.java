@@ -1,5 +1,4 @@
-// Generated from questao2/Ciclomatica.g4 by ANTLR 4.5.3
-package questao2;
+// Generated from Ciclomatica.g4 by ANTLR 4.5.3
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -124,6 +123,12 @@ public interface CiclomaticaVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExpr(CiclomaticaParser.ExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CiclomaticaParser#ifexpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIfexpr(CiclomaticaParser.IfexprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CiclomaticaParser#expression}.
 	 * @param ctx the parse tree
