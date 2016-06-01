@@ -1,9 +1,9 @@
-grammar C#;
+grammar Csharp;
 
 prog: stat+;
 
 packageDeclaration
-        : 'package' ID ';'
+        : ('package' ID)? ';'
         ;
 
 classOrInterfaceModifier
@@ -63,6 +63,8 @@ stat
         | 'if' '(' ifexpr ')' ifblock (stat)?
         | 'else if' '(' expr ')' stat
         | elseifblock
+        | 'else' stat
+        | 'else' '{' stat '}'
         | 'for' '(' forControl ')' stat
         | 'do' stat 'while' parExpression ';'
         | 'try' block ( catches 'finally' block
@@ -73,6 +75,7 @@ stat
         | ID'.'ID'('')' ';'
         | ID'(' ')'
         | multipleVariable
+        | multipleExpr
         | NEWLINE ID '(' ')' ';'
         | expr NEWLINE
         | ID '=' expr NEWLINE
@@ -129,6 +132,10 @@ ifexpr: ID '<' INT
       | ID '>=' INT
       | ID '<=' INT
       ;
+
+multipleExpr: ifexpr ('||' ifexpr)
+            | ifexpr ('&&' ifexpr)
+            ;
 
 expression : | expression ('++' | '--')
            |   expression ('<' '<' | '>' '>' '>' | '>' '>') expression
