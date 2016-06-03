@@ -184,5 +184,11 @@ public Pessoa()
 
 criar metodo para instanciar um objeto
 Pessoa p1 = new Pessoa();
+
+namespace
+
+Não precisa ter metodos main
+
+extends trocar por :
 */
 
