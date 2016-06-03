@@ -136,8 +136,9 @@ expr : ID '[' expr ']'
 //adicionar os tipos de variaveis que podem ser criadas
 parametersType: 'int'
               | 'string'
-              | 'boolean'
-              | 'float'
+              | 'bool'
+              | 'decimal'
+              | 'object'
               ;
 
 methodParameters: parametersType multipleVariable(',' parametersType multipleVariable)?
@@ -190,5 +191,8 @@ namespace
 Não precisa ter metodos main
 
 extends trocar por :
+
+
+List<UserContact>
 */
 
