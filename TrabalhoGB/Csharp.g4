@@ -74,6 +74,7 @@ stat
         | ID '(' ')' ';'
         | ID'.'ID'('')' ';'
         | ID'(' ')'
+        | createNewObject
         | multipleVariable
         | multipleExpr
         | NEWLINE ID '(' ')' ';'
@@ -84,6 +85,11 @@ stat
 
 multipleVariable
         : ID('_'ID)?
+        ;
+
+createNewObject
+        : OBEJCTID ID '=' 'new' OBEJCTID'(' ')'
+        | OBEJCTID ID '=' 'new' OBEJCTID'(' multipleParameters ')'
         ;
 
 whileblock : '{' stat* '}' ;
@@ -127,6 +133,20 @@ expr : ID '[' expr ']'
      | INT
      ;
 
+//adicionar os tipos de variaveis que podem ser criadas
+parametersType: 'int'
+              | 'string'
+              | 'boolean'
+              | 'float'
+              ;
+
+methodParameters: parametersType multipleVariable(',' parametersType multipleVariable)?
+                ;
+
+methodClass: multipleVariable'(' ')'
+           | multipleVariable '(' methodParameters ')'
+           ;
+
 ifexpr: ID '<' INT
       | ID '>' INT
       | ID '>=' INT
@@ -141,12 +161,28 @@ expression : | expression ('++' | '--')
            |   expression ('<' '<' | '>' '>' '>' | '>' '>') expression
            |   expression ('<' '=' | '>' '=' | '>' | '<') expression
            ;
+
 expressionList :   expression (',' expression)* ;
 
 ID  : [a-zA-Z]+;      // match identifiers
+OBEJCTID: ([A-Z])[\w]+;
 INT :   [0-9]+ ;         // match integers
 NEWLINE: '\r'? '\n' ;   // return newlines to parser (is end-statement signal)
 WS  :   [ \t]+ -> skip ; // toss out whitespace
 
 
+/*
+Criar metodo para pegar atribição
+a = 2;
+a = b;
+
+criar metodo para construtori
+public Pessoa()
+{
+    ...
+}
+
+criar metodo para instanciar um objeto
+Pessoa p1 = new Pessoa();
+*/
 
