@@ -1,0 +1,6 @@
+
+// executa a aplicacao
+// fiz este script pra facilitar a execucao
+// pode mudar dentro dele conforme precisar
+
+./ExecutaAplicacao.sh
