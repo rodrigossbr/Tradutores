@@ -9,41 +9,16 @@ packageDeclaration
 classOrInterfaceModifier
         : 'public'
         | 'protected'
-        | 'private'
-        | 'abstract'
+        | 'private'      | 'abstract'
         | 'static'
         | 'final'
         | 'strictfp'
         ;
 
 classIdentifier
-        : 'public' 'class' ID
-                 ('extends' ID '{' classBodyDeclaration '}')?
-                 ('implements' '{' classBodyDeclaration '}')?
-                 '{' classBodyDeclaration* '}'
-
-        | 'protected' 'class' ID
-                  ('extends' ID '{' classBodyDeclaration '}')?
-                  ('implements' '{' classBodyDeclaration '}')?
-                 '{' classBodyDeclaration* '}'
-        | 'private' 'class' ID
-                  ('extends' ID '{' classBodyDeclaration '}')?
-                  ('implements' '{' classBodyDeclaration '}')?
-                 '{' classBodyDeclaration* '}'
+        : 'public' 'class' OBEJCTID '{' stat '}'
         ;
 
-classBodyDeclaration
-        : (classOrInterfaceModifier*)? 'main' '(' 'String[] args' ')' '{' stat '}'
-        | (classOrInterfaceModifier*)? returnType '('')' '{' stat '}'
-        | (classOrInterfaceModifier*)? returnType '(' multipleParameters ')' '{' stat '}'
-        | classOrInterfaceModifier returnType '('')' '{' stat '}'
-        | classOrInterfaceModifier returnType '('multipleParameters ')' '{' stat '}'
-        | (classOrInterfaceModifier*)? 'main' '(' 'String[] args' ')' '{' stat* '}'
-        | (classOrInterfaceModifier*)? returnType '('')' '{' stat* '}'
-        | (classOrInterfaceModifier*)? returnType '(' multipleParameters ')' '{' stat* '}'
-        | classOrInterfaceModifier returnType '('')' '{' stat '}'
-        | classOrInterfaceModifier returnType '('multipleParameters ')' '{' stat* '}'
-        ;
 multipleParameters
         : returnType ID (',' returnType ID)?
         ;
@@ -56,8 +31,7 @@ returnType
         | 'boolean'
         ;
 
-stat
-        : 'while' '('expr')' stat
+stat    : 'while' '('expr')' stat
         | whileblock
         | 'if' '(' ifexpr ')' stat
         | 'if' '(' ifexpr ')' ifblock (stat)?
@@ -193,6 +167,6 @@ Não precisa ter metodos main
 extends trocar por :
 
 
-List<UserContact>
+List<UserContact>d
 */
 
