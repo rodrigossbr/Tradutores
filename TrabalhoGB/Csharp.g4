@@ -9,7 +9,8 @@ packageDeclaration
 classOrInterfaceModifier
         : 'public'
         | 'protected'
-        | 'private'      | 'abstract'
+        | 'private'
+        | 'abstract'
         | 'static'
         | 'final'
         | 'strictfp'
@@ -17,6 +18,7 @@ classOrInterfaceModifier
 
 classIdentifier
         : 'public' 'class' OBEJCTID '{' stat '}'
+        | 'public' 'class' OBEJCTID ':' OBEJCTID '{' stat '}'
         ;
 
 multipleParameters
@@ -107,6 +109,9 @@ expr : ID '[' expr ']'
      | INT
      ;
 
+variableAndMethodsGetSet : parametersType ID '{' GET ';'SET';' '}'
+                         ;
+
 //adicionar os tipos de variaveis que podem ser criadas
 parametersType: 'int'
               | 'string'
@@ -139,6 +144,9 @@ expression : | expression ('++' | '--')
 
 expressionList :   expression (',' expression)* ;
 
+
+GET : [get];
+SET : [set];
 ID  : [a-zA-Z]+;      // match identifiers
 OBEJCTID: ([A-Z])[\w]+;
 INT :   [0-9]+ ;         // match integers
