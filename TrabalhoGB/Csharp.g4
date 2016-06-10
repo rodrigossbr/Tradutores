@@ -19,6 +19,7 @@ classOrInterfaceModifier
 classIdentifier
         : 'public' 'class' OBEJCTID '{' stat '}'
         | 'public' 'class' OBEJCTID ':' OBEJCTID '{' stat '}'
+        | 'public' 'class' OBEJCTID ':' OBEJCTID (',' OBEJCTID)? '{' stat '}'
         ;
 
 multipleParameters
