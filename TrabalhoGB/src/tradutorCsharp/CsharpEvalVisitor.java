@@ -1,6 +1,6 @@
 package tradutorCsharp;
 
-import Conversores.ClasseTs;
+import conversores.ClasseTs;
 
 /**
  * Created by rodrigo on 04/06/16.

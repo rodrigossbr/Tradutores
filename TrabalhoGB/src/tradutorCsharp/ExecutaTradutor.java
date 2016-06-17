@@ -1,6 +1,6 @@
 package tradutorCsharp;
 
-import Conversores.ConversorTs;
+import conversores.ConversorTs;
 
 /**
  * Created by rodrigo on 04/06/16.

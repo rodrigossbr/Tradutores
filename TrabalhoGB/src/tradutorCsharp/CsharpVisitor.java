@@ -35,12 +35,6 @@ public interface CsharpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClassIdentifier(CsharpParser.ClassIdentifierContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CsharpParser#classBodyDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClassBodyDeclaration(CsharpParser.ClassBodyDeclarationContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link CsharpParser#multipleParameters}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -172,6 +166,12 @@ public interface CsharpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExpr(CsharpParser.ExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CsharpParser#variableAndMethodsGetSet}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableAndMethodsGetSet(CsharpParser.VariableAndMethodsGetSetContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CsharpParser#parametersType}.
 	 * @param ctx the parse tree

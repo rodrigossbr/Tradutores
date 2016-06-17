@@ -1,4 +1,4 @@
-package Conversores;
+package conversores;
 
 /**
  * Created by rodrigo on 09/06/16.
