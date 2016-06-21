@@ -1,4 +1,4 @@
-// Generated from Csharp.g4 by ANTLR 4.5.1
+// Generated from Csharp.g4 by ANTLR 4.5.3
 package tradutorCsharp;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -11,23 +11,23 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface CsharpVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link CsharpParser#usingDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUsingDeclaration(CsharpParser.UsingDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CsharpParser#namespaceDeclaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNamespaceDeclaration(CsharpParser.NamespaceDeclarationContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CsharpParser#prog}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitProg(CsharpParser.ProgContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CsharpParser#packageDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPackageDeclaration(CsharpParser.PackageDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CsharpParser#classOrInterfaceModifier}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitClassOrInterfaceModifier(CsharpParser.ClassOrInterfaceModifierContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CsharpParser#classIdentifier}.
 	 * @param ctx the parse tree
@@ -167,11 +167,29 @@ public interface CsharpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(CsharpParser.ExprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link CsharpParser#variableInCode}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableInCode(CsharpParser.VariableInCodeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CsharpParser#construtor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConstrutor(CsharpParser.ConstrutorContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CsharpParser#variableAndMethodsGetSet}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitVariableAndMethodsGetSet(CsharpParser.VariableAndMethodsGetSetContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CsharpParser#variableArray}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableArray(CsharpParser.VariableArrayContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CsharpParser#parametersType}.
 	 * @param ctx the parse tree

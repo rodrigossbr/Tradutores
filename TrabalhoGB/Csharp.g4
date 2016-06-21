@@ -1,26 +1,27 @@
 grammar Csharp;
 
-prog: stat+;
-
-packageDeclaration
-        : ('package' ID)? ';'
+usingDeclaration
+        : (USING ID'.'ID'.'ID';')? NEWLINE* namespaceDeclaration
+           EOF
         ;
 
-classOrInterfaceModifier
-        : 'public'
-        | 'protected'
-        | 'private'
-        | 'abstract'
-        | 'static'
-        | 'final'
-        | 'strictfp'
+namespaceDeclaration
+        : NAMESPACE ID'.'ID '{' NEWLINE* classIdentifier NEWLINE* '}'
+        | NAMESPACE ID'-'ID '{' NEWLINE*  classIdentifier NEWLINE* '}'
+        | NAMESPACE ID'{' NEWLINE* classIdentifier NEWLINE* '}'
         ;
 
-classIdentifier
-        : 'public' 'class' OBEJCTID '{' stat '}'
-        | 'public' 'class' OBEJCTID ':' OBEJCTID '{' stat '}'
-        | 'public' 'class' OBEJCTID ':' OBEJCTID (',' OBEJCTID)? '{' stat '}'
-        ;
+prog: usingDeclaration*
+    | namespaceDeclaration
+    | classIdentifier+
+    | stat+
+    ;
+
+classIdentifier: 'public' 'class' ID '{' stat+ '}'
+               | 'public' 'class' ID ':' ID'{' stat+ '}'
+               | 'public' 'class' ID ':' ID (',' ID)?'{' stat+ '}'
+               | NEWLINE
+               ;
 
 multipleParameters
         : returnType ID (',' returnType ID)?
@@ -54,10 +55,14 @@ stat    : 'while' '('expr')' stat
         | createNewObject
         | multipleVariable
         | multipleExpr
+        | variableAndMethodsGetSet
+        | variableArray
+        | construtor
         | NEWLINE ID '(' ')' ';'
         | expr NEWLINE
         | ID '=' expr NEWLINE
         | NEWLINE
+        | WS
         ;
 
 multipleVariable
@@ -65,8 +70,8 @@ multipleVariable
         ;
 
 createNewObject
-        : OBEJCTID ID '=' 'new' OBEJCTID'(' ')'
-        | OBEJCTID ID '=' 'new' OBEJCTID'(' multipleParameters ')'
+        : ID ID '=' 'new' ID'(' ')'
+        | ID ID '=' 'new' ID'(' multipleParameters ')'
         ;
 
 whileblock : '{' stat* '}' ;
@@ -110,8 +115,23 @@ expr : ID '[' expr ']'
      | INT
      ;
 
-variableAndMethodsGetSet : parametersType ID '{' GET ';'SET';' '}'
+//receber as variaveis
+
+variableInCode
+	: ID '=' ID';'
+	| NEWLINE
+        ;
+
+construtor: 'public' ID '(' parametersType ID ')' '{' variableInCode+ '}'
+          | 'public' ID '(' parametersType ID',' parametersType ID ')' '{' variableInCode+ '}'
+	  | 'public' ID '(' parametersType ID',' parametersType ID ',' parametersType ID ')' '{' variableInCode+ '}'          
+          ;
+
+variableAndMethodsGetSet : 'public'  parametersType ID '{' GET ';'SET';' '}'
                          ;
+
+variableArray : 'public' ID'<'ID'>' ID '{' GET ';' SET ';' '}'
+	      ;
 
 //adicionar os tipos de variaveis que podem ser criadas
 parametersType: 'int'
@@ -145,9 +165,10 @@ expression : | expression ('++' | '--')
 
 expressionList :   expression (',' expression)* ;
 
-
-GET : [get];
-SET : [set];
+USING: 'using';
+NAMESPACE: 'namespace';
+GET : 'get';
+SET : 'set';
 ID  : [a-zA-Z]+;      // match identifiers
 OBEJCTID: ([A-Z])[\w]+;
 INT :   [0-9]+ ;         // match integers

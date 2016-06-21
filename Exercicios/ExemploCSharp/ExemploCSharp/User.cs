@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿//using System.Collections.Generic;
 
-namespace ExemploCSharp
-{
+//namespace ExemploCSharp{
   public class User
   {
     public int Id { get; set; }
@@ -21,4 +20,4 @@ namespace ExemploCSharp
       Password = password;
     }
   }
-}
+//}
