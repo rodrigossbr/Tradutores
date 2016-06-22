@@ -1,4 +1,4 @@
-// Generated from Csharp.g4 by ANTLR 4.5.3
+// Generated from Csharp.g4 by ANTLR 4.5.1
 package tradutorCsharp;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -184,12 +184,6 @@ public interface CsharpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariableAndMethodsGetSet(CsharpParser.VariableAndMethodsGetSetContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CsharpParser#variableArray}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVariableArray(CsharpParser.VariableArrayContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CsharpParser#parametersType}.
 	 * @param ctx the parse tree

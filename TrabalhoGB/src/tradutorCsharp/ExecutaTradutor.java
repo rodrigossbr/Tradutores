@@ -15,8 +15,16 @@ public class ExecutaTradutor {
         String pastaOrigem = args[0];
         String pastaDestino = args[1];
 
+        String op = "";
+        if ( args.length > 2){
+            op = args[3];
+        }
+
         ConversorTs conversorTs = new ConversorTs(pastaOrigem, pastaDestino);
-        conversorTs.modoDebug();
-        //conversorTs.converteParaArquivos();
+        if(op.equals("-d")){
+            conversorTs.modoDebug();
+        }else{
+            conversorTs.converteParaArquivos();
+        }
     }
 }

@@ -29,6 +29,10 @@ public class ClasseTs {
         this.metodos.add(metodo);
     }
 
+    public void addPropriedade(Propriedade propriedade){
+        this.propriedades.add(propriedade);
+    }
+
     public String getNomeArquivo(){
         return this.nome + ".ts";
     }
@@ -36,15 +40,17 @@ public class ClasseTs {
     public String render(){
         StringBuffer buffer = new StringBuffer();
         buffer.append(this.tipoClasse);
-        buffer.append(" Class ");
+        buffer.append(" class ");
         buffer.append(this.nome);
 
         if(!this.classesExtensao.isEmpty()){
-            buffer.append(" : ");
+            buffer.append(" extends ");
             boolean incluirVirgula = false;
             for (String nomeClasse: this.classesExtensao) {
                 if(incluirVirgula)
                     buffer.append(", ");
+                if(nomeClasse.indexOf("I") == 0)
+                    buffer.append(" implements ");
                 buffer.append(nomeClasse);
                 incluirVirgula = true;
             }
@@ -55,11 +61,9 @@ public class ClasseTs {
             for (Propriedade propriedade: this.propriedades) {
                 buffer.append(propriedade.getAtributeRender());
             }
-
-            for (Propriedade propriedade: this.propriedades) {
-                buffer.append(propriedade.render());
-            }
         }
+
+        buffer.append("\n");
 
         if(!this.metodos.isEmpty()){
             for (Metodo metodo: this.metodos) {
@@ -67,7 +71,13 @@ public class ClasseTs {
             }
         }
 
-        buffer.append("\n\t}\n");
+        if(!this.propriedades.isEmpty()){
+            for (Propriedade propriedade: this.propriedades) {
+                buffer.append(propriedade.render());
+            }
+        }
+
+        buffer.append("\n}\n");
         return buffer.toString();
     }
 }

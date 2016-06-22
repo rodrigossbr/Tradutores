@@ -1,4 +1,4 @@
-// Generated from Csharp.g4 by ANTLR 4.5.3
+// Generated from Csharp.g4 by ANTLR 4.5.1
 package tradutorCsharp;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -214,13 +214,6 @@ public class CsharpBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitVariableAndMethodsGetSet(CsharpParser.VariableAndMethodsGetSetContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitVariableArray(CsharpParser.VariableArrayContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

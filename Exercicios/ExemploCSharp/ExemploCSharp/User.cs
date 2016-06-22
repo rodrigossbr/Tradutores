@@ -1,6 +1,6 @@
-﻿//using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-//namespace ExemploCSharp{
+namespace ExemploCSharp{
   public class User
   {
     public int Id { get; set; }
@@ -13,6 +13,11 @@
 
     public List<UserContact> Contacts { get; set; }
 
+	public User()
+	{
+
+	}
+
     public User(string name, string email, string password)
     {
       Name = name;
@@ -20,4 +25,4 @@
       Password = password;
     }
   }
-//}
+}

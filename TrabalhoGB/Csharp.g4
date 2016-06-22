@@ -1,14 +1,14 @@
 grammar Csharp;
 
 usingDeclaration
-        : (USING ID'.'ID'.'ID';')? NEWLINE* namespaceDeclaration
-           EOF
+        : (USING ID'.'ID'.'ID';')? NEWLINE* namespaceDeclaration EOF
+        | NEWLINE* namespaceDeclaration EOF
         ;
 
 namespaceDeclaration
-        : NAMESPACE ID'.'ID '{' NEWLINE* classIdentifier NEWLINE* '}'
-        | NAMESPACE ID'-'ID '{' NEWLINE*  classIdentifier NEWLINE* '}'
-        | NAMESPACE ID'{' NEWLINE* classIdentifier NEWLINE* '}'
+        : NAMESPACE ID'.'ID NEWLINE* '{' NEWLINE* classIdentifier NEWLINE* '}' NEWLINE*
+        | NAMESPACE ID'-'ID NEWLINE* '{' NEWLINE*  classIdentifier NEWLINE* '}' NEWLINE*
+        | NAMESPACE ID NEWLINE* '{' NEWLINE* classIdentifier NEWLINE* '}' NEWLINE*
         ;
 
 prog: usingDeclaration*
@@ -17,9 +17,9 @@ prog: usingDeclaration*
     | stat+
     ;
 
-classIdentifier: 'public' 'class' ID '{' stat+ '}'
-               | 'public' 'class' ID ':' ID'{' stat+ '}'
-               | 'public' 'class' ID ':' ID (',' ID)?'{' stat+ '}'
+classIdentifier: 'public' 'class' ID '{' stat+ '}' NEWLINE*
+               | 'public' 'class' ID ':' ID'{' stat+ '}' NEWLINE*
+               | 'public' 'class' ID ':' ID (',' ID)?'{' stat+ '}' NEWLINE*
                | NEWLINE
                ;
 
@@ -56,7 +56,6 @@ stat    : 'while' '('expr')' stat
         | multipleVariable
         | multipleExpr
         | variableAndMethodsGetSet
-        | variableArray
         | construtor
         | NEWLINE ID '(' ')' ';'
         | expr NEWLINE
@@ -122,16 +121,16 @@ variableInCode
 	| NEWLINE
         ;
 
-construtor: 'public' ID '(' parametersType ID ')' '{' variableInCode+ '}'
-          | 'public' ID '(' parametersType ID',' parametersType ID ')' '{' variableInCode+ '}'
-	  | 'public' ID '(' parametersType ID',' parametersType ID ',' parametersType ID ')' '{' variableInCode+ '}'          
+construtor: 'public' ID '()' NEWLINE* '{' NEWLINE* '}' NEWLINE*
+          | 'public' ID '()' NEWLINE* '{' NEWLINE* variableInCode* NEWLINE* '}' NEWLINE*
+          | 'public' ID '(' parametersType ID ')' NEWLINE* '{' variableInCode+ '}' NEWLINE*
+          | 'public' ID '(' parametersType ID',' parametersType ID ')' NEWLINE* '{' variableInCode+ '}' NEWLINE*
+	      | 'public' ID '(' parametersType ID',' parametersType ID ',' parametersType ID ')' NEWLINE* '{' variableInCode+ '}' NEWLINE*
           ;
 
-variableAndMethodsGetSet : 'public'  parametersType ID '{' GET ';'SET';' '}'
+variableAndMethodsGetSet : 'public' parametersType ID '{' GET ';' SET ';' '}'
+                         | 'public' ID'<'ID'>' ID '{' GET ';' SET ';' '}'
                          ;
-
-variableArray : 'public' ID'<'ID'>' ID '{' GET ';' SET ';' '}'
-	      ;
 
 //adicionar os tipos de variaveis que podem ser criadas
 parametersType: 'int'

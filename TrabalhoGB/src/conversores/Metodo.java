@@ -31,9 +31,16 @@ public class Metodo {
 
     public String render(){
         StringBuffer buffer = new StringBuffer();
-        buffer.append(this.tipoMetodo);
-        buffer.append(this.tipoRetorno);
-        buffer.append(this.nome);
+        buffer.append("\t");
+
+        if(this.tipoRetorno.isEmpty()){
+            buffer.append("constructor");
+        }else{
+            buffer.append(this.tipoMetodo);
+            buffer.append(" ");
+            buffer.append(this.nome);
+        }
+
         buffer.append("(");
 
         boolean incluirVirgula = false;
@@ -44,6 +51,10 @@ public class Metodo {
             incluirVirgula = true;
         }
         buffer.append(")");
+        if(this.tipoRetorno.isEmpty()){
+            buffer.append(" : ");
+            buffer.append(this.tipoRetorno);
+        }
         buffer.append(" { }\n");
         return buffer.toString();
     }

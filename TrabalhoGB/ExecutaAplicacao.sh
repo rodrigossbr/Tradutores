@@ -9,7 +9,7 @@ javac -d bin/ src/conversores/*.java src/tradutorCsharp/*.java;
 
 
 
-echo "\nExecutando a aplicacao com o input: input-csharp/User.cs "
+echo "\nExecutando a aplicacao com os inputs da pasta: input-csharp\n\n"
 cd bin/;
 #java -verbose tradutorCsharp.ExecutaTradutor ../input-csharp/User.cs;
 java tradutorCsharp.ExecutaTradutor "../../TrabalhoGB/input-csharp" "../../TrabalhoGB/output-typescript"

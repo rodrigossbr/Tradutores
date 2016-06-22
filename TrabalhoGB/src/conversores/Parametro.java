@@ -16,7 +16,7 @@ public class Parametro {
         StringBuffer buffer = new StringBuffer();
         buffer.append(this.nome);
         buffer.append(": ");
-        buffer.append(this.tipoParametro);
+        buffer.append(TipoEquivalente.tipoEquivalente(this.tipoParametro));
         return buffer.toString();
     }
 }

@@ -37,6 +37,7 @@ public class ConversorTs {
         for (ClasseTs classe: this.classesTs) {
             buffer.append(classe.render());
         }
+        System.out.println(buffer.toString());
         return buffer.toString();
     }
 
@@ -61,7 +62,7 @@ public class ConversorTs {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             CsharpParser parser = new CsharpParser(tokens);
             ParseTree tree = parser.prog();
-            System.out.println(tree.toStringTree(parser));
+            //System.out.println(tree.toStringTree(parser));
             CsharpEvalVisitor csharpEvalVisitor = new CsharpEvalVisitor();
             csharpEvalVisitor.visit(tree);
             this.addClasse(csharpEvalVisitor.getClasse());

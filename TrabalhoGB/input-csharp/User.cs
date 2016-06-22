@@ -1,6 +1,5 @@
-using System.Collections.Generic;
+namespace input-csharp{
 
-namespace ExemploCSharp{
   public class User{
     public int Id { get; set; }
 
@@ -11,6 +10,11 @@ namespace ExemploCSharp{
     public string Password { get; set; }
 
     public List<UserContact> Contacts { get; set; }
+
+    public User()
+    {
+
+    }
 
     public User(string name, string email, string password){
       Name = name;

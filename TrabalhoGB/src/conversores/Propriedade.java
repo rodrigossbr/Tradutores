@@ -26,28 +26,30 @@ public class Propriedade {
     }
 
     public String getAtributeRender(){
-        return "private _" + this.nome.toLowerCase() + ": " + this.tipoRetorno + ";";
+        return "\tprivate _" + this.nome.toLowerCase() + ": " + TipoEquivalente.tipoEquivalente(this.tipoRetorno) + ";\n";
     }
 
     public String render(){
         StringBuffer buffer = new StringBuffer();
         if(this.get) {
+            buffer.append("\n\t");
             buffer.append("get ");
-            buffer.append(this.nome);
+            buffer.append(this.nome.toLowerCase());
             buffer.append("(): ");
-            buffer.append(this.tipoRetorno);
+            buffer.append(TipoEquivalente.tipoEquivalente(this.tipoRetorno));
             buffer.append(" {\n");
-            buffer.append("\treturn this._" + this.nome.toLowerCase() + ";");
-            buffer.append("\n}\n");
+            buffer.append("\t\treturn this._" + this.nome.toLowerCase() + ";");
+            buffer.append("\n\t}");
         }
 
         if(this.set) {
-            buffer.append("\nset ");
-            buffer.append(this.nome);
-            buffer.append("(value: " + this.tipoRetorno + ")");
+            buffer.append("\n\t");
+            buffer.append("set ");
+            buffer.append(this.nome.toLowerCase());
+            buffer.append("(value: " + TipoEquivalente.tipoEquivalente(this.tipoRetorno) + ")");
             buffer.append(" {\n");
-            buffer.append("\tthis._" + this.nome.toLowerCase() + " = value;");
-            buffer.append("\n}\n");
+            buffer.append("\t\tthis._" + this.nome.toLowerCase() + " = value;");
+            buffer.append("\n\t}");
         }
         return buffer.toString();
     }
