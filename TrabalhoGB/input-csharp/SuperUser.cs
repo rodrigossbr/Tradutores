@@ -1,6 +1,7 @@
 ﻿namespace input-csharp{
 
-	public class SuperUser : User {
+	public class SuperUser: User
+	{
 
 		public string SuperUserLogin { get; set; }
 

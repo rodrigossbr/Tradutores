@@ -35,17 +35,29 @@ public interface CsharpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitClassIdentifier(CsharpParser.ClassIdentifierContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link CsharpParser#modifierType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitModifierType(CsharpParser.ModifierTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link CsharpParser#objectType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitObjectType(CsharpParser.ObjectTypeContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link CsharpParser#multipleParameters}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitMultipleParameters(CsharpParser.MultipleParametersContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link CsharpParser#returnType}.
+	 * Visit a parse tree produced by {@link CsharpParser#csharpType}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturnType(CsharpParser.ReturnTypeContext ctx);
+	T visitCsharpType(CsharpParser.CsharpTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CsharpParser#stat}.
 	 * @param ctx the parse tree
@@ -184,12 +196,6 @@ public interface CsharpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariableAndMethodsGetSet(CsharpParser.VariableAndMethodsGetSetContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link CsharpParser#parametersType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParametersType(CsharpParser.ParametersTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link CsharpParser#methodParameters}.
 	 * @param ctx the parse tree

@@ -17,7 +17,7 @@ public class ExecutaTradutor {
 
         String op = "";
         if ( args.length > 2){
-            op = args[3];
+            op = args[2];
         }
 
         ConversorTs conversorTs = new ConversorTs(pastaOrigem, pastaDestino);

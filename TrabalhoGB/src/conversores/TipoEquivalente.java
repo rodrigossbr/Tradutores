@@ -18,7 +18,7 @@ public class TipoEquivalente {
             return "number";
         }
 
-        if (tipoCsharp.equals("String")) {
+        if (tipoCsharp.equals("String") || tipoCsharp.equals("string")) {
             return "string";
         }
 
@@ -39,4 +39,17 @@ public class TipoEquivalente {
         return tipoCsharp;
     }
 
+    public static String tipoImport(String tipoCsharp){
+
+        if(tipoCsharp.contains("<")){
+            String tipoObj = tipoCsharp.substring(tipoCsharp.indexOf("<") + 1, tipoCsharp.indexOf(">"));
+            return tipoObj;
+        }
+
+        String equivalente = tipoEquivalente(tipoCsharp);
+        return equivalente.equals(tipoCsharp)
+                && !equivalente.equals("number")
+                && !equivalente.equals("string")
+                && !equivalente.equals("boolean") ? tipoCsharp : "";
+    }
 }

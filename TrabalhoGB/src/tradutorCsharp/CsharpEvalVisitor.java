@@ -22,73 +22,44 @@ public class CsharpEvalVisitor extends CsharpBaseVisitor<Integer> {
     // cria a classe
     @Override
     public Integer visitClassIdentifier(CsharpParser.ClassIdentifierContext ctx) {
-
-        List<TerminalNode> extendsClass = ctx.ID();
-        boolean created = false;
-        for (TerminalNode t : extendsClass) {
-            if(!created){
-                this.classe = new ClasseTs(t.getText(), "public");
-                created = true;
-            }else{
-                this.classe.addClasseExtensao(t.getText());
-            }
+        this.classe = new ClasseTs(ctx.ID().getText(), ctx.modifierType().getText());
+        List<CsharpParser.ObjectTypeContext> extendsClass = ctx.objectType();
+        for (CsharpParser.ObjectTypeContext t : extendsClass) {
+            this.classe.addClasseExtensao(t.getText());
+            this.classe.addImport(t.getText());
         }
         return visitChildren(ctx);
     }
 
     @Override
     public Integer visitConstrutor(CsharpParser.ConstrutorContext ctx) {
-
-        TerminalNode tn = ctx.ID(0);
-        if(tn != null){
-            Metodo m = new Metodo(tn.getText());
-            m.setTipoMetodo("public");
-            m.setTipoRetorno("");
-
-            List<CsharpParser.ParametersTypeContext> tiposParametros = ctx.parametersType();
-            int cont = 1;
-            for (CsharpParser.ParametersTypeContext p : tiposParametros) {
-                String tipoParametro = p.children.get(0).getText();
-                String momeParametro = ctx.ID(cont++).getText();
+        Metodo m = new Metodo(ctx.ID().getText());
+        m.setTipoMetodo(ctx.modifierType().getText());
+        m.setTipoRetorno(""); // construtor eh um metodo sem retorno
+        CsharpParser.MultipleParametersContext parametros = ctx.multipleParameters();
+        if(parametros != null){
+            int cont = 0;
+            for (TerminalNode p : parametros.ID()) {
+                String tipoParametro = parametros.csharpType(cont++).getText();
+                String momeParametro = p.getText();
                 Parametro param = new Parametro(momeParametro, tipoParametro);
                 m.AddParametro(param);
+                this.classe.addImport(tipoParametro);
             }
-            this.classe.addMetodo(m);
         }
+        this.classe.addMetodo(m);
         return visitChildren(ctx);
     }
 
     @Override
     public Integer visitVariableAndMethodsGetSet(CsharpParser.VariableAndMethodsGetSetContext ctx) {
 
-        List<TerminalNode> ns = ctx.ID();
-        if(ns.size() > 1){
-            TerminalNode tn = ctx.ID(2);
-            if (tn != null) {
-                Propriedade propriedade = new Propriedade(tn.getText(), true, true);
-                propriedade.setTipoPropriedade("public");
+        Propriedade propriedade = new Propriedade(ctx.ID().getText(), true, true);
+        propriedade.setTipoPropriedade(ctx.modifierType().getText());
+        propriedade.setTipoRetorno(ctx.csharpType().getText());
+        this.classe.addImport(ctx.csharpType().getText());
+        this.classe.addPropriedade(propriedade);
 
-                TerminalNode tipoObjeto = ctx.ID(0);
-                TerminalNode nomeObjeto = ctx.ID(1);
-                String retorno = tipoObjeto.getText() + "<" + nomeObjeto.getText() + ">";
-                propriedade.setTipoRetorno(retorno);
-
-                this.classe.addPropriedade(propriedade);
-            }
-        }else {
-            TerminalNode tn = ctx.ID(0);
-            if (tn != null) {
-                Propriedade propriedade = new Propriedade(tn.getText(), true, true);
-                propriedade.setTipoPropriedade("public");
-
-                CsharpParser.ParametersTypeContext paramContext = ctx.parametersType();
-                if (paramContext != null) {
-                    String retornoPropriedade = paramContext.children.get(0).getText();
-                    propriedade.setTipoRetorno(retornoPropriedade);
-                }
-                this.classe.addPropriedade(propriedade);
-            }
-        }
         return visitChildren(ctx);
     }
 }

@@ -9,6 +9,7 @@ public class ClasseTs {
 
     private String tipoClasse;
     private String nome;
+    private ArrayList<ImportTs> imports;
     private ArrayList<String> classesExtensao;
     private ArrayList<Propriedade> propriedades;
     private ArrayList<Metodo> metodos;
@@ -16,6 +17,7 @@ public class ClasseTs {
     public ClasseTs(String nome, String tipoClasse){
         this.nome = nome;
         this.tipoClasse = tipoClasse;
+        this.imports = new ArrayList<ImportTs>();
         this.classesExtensao = new ArrayList<String>();
         this.propriedades = new ArrayList<Propriedade>();
         this.metodos = new ArrayList<Metodo>();
@@ -23,6 +25,18 @@ public class ClasseTs {
 
     public void addClasseExtensao(String nomeClasse){
         this.classesExtensao.add(nomeClasse);
+    }
+
+    public void addImport(String nome){
+        String importName = TipoEquivalente.tipoImport(nome);
+        if(!importName.isEmpty()){
+            for (ImportTs i: this.imports) {
+                if (i.getNome().equals(importName)) {
+                    return;
+                }
+            }
+            this.imports.add(new ImportTs(importName));
+        }
     }
 
     public void addMetodo(Metodo metodo){
@@ -39,6 +53,14 @@ public class ClasseTs {
 
     public String render(){
         StringBuffer buffer = new StringBuffer();
+
+        if(!this.imports.isEmpty()){
+            for (ImportTs importTs: this.imports) {
+                buffer.append(importTs.render());
+            }
+            buffer.append("\n\n");
+        }
+
         buffer.append(this.tipoClasse);
         buffer.append(" class ");
         buffer.append(this.nome);
@@ -62,8 +84,6 @@ public class ClasseTs {
                 buffer.append(propriedade.getAtributeRender());
             }
         }
-
-        buffer.append("\n");
 
         if(!this.metodos.isEmpty()){
             for (Metodo metodo: this.metodos) {

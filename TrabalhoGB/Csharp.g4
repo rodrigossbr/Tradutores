@@ -1,3 +1,4 @@
+
 grammar Csharp;
 
 usingDeclaration
@@ -17,23 +18,39 @@ prog: usingDeclaration*
     | stat+
     ;
 
-classIdentifier: 'public' 'class' ID '{' stat+ '}' NEWLINE*
-               | 'public' 'class' ID ':' ID'{' stat+ '}' NEWLINE*
-               | 'public' 'class' ID ':' ID (',' ID)?'{' stat+ '}' NEWLINE*
+classIdentifier: modifierType 'class' ID '{' stat+ '}' NEWLINE*
+               | modifierType 'class' ID ':' objectType (',' objectType)*? NEWLINE* '{' stat+ '}' NEWLINE*
                | NEWLINE
                ;
 
+modifierType: 'public'
+            | 'private'
+            | 'protected'
+            ;
+
+objectType: ID;
+
 multipleParameters
-        : returnType ID (',' returnType ID)?
+        : csharpType ID(',' csharpType ID)*?
         ;
 
-returnType
-        : 'void'
-        | 'int'
-        | 'string'
-        | 'float'
-        | 'boolean'
-        ;
+csharpType: 'void'
+          | 'int'
+          | 'string'
+          | 'bool'
+          | 'decimal'
+          | 'float'
+          | 'boolean'
+          | 'object'
+          | 'List' '<' csharpType '>'
+          | 'List' '<' ID '>'
+          | 'IList' '<' csharpType '>'
+          | 'IList' '<' ID '>'
+          |  ID '<' csharpType '>'
+          |  ID '<' ID '>'
+          | objectType
+          ;
+
 
 stat    : 'while' '('expr')' stat
         | whileblock
@@ -121,26 +138,16 @@ variableInCode
 	| NEWLINE
         ;
 
-construtor: 'public' ID '()' NEWLINE* '{' NEWLINE* '}' NEWLINE*
-          | 'public' ID '()' NEWLINE* '{' NEWLINE* variableInCode* NEWLINE* '}' NEWLINE*
-          | 'public' ID '(' parametersType ID ')' NEWLINE* '{' variableInCode+ '}' NEWLINE*
-          | 'public' ID '(' parametersType ID',' parametersType ID ')' NEWLINE* '{' variableInCode+ '}' NEWLINE*
-	      | 'public' ID '(' parametersType ID',' parametersType ID ',' parametersType ID ')' NEWLINE* '{' variableInCode+ '}' NEWLINE*
+construtor: modifierType ID '()' NEWLINE* '{' NEWLINE* '}' NEWLINE*
+          | modifierType ID '()' NEWLINE* '{' NEWLINE* variableInCode* NEWLINE* '}' NEWLINE*
+          | modifierType ID '(' multipleParameters ')' NEWLINE* '{' variableInCode+ '}' NEWLINE*
           ;
 
-variableAndMethodsGetSet : 'public' parametersType ID '{' GET ';' SET ';' '}'
-                         | 'public' ID'<'ID'>' ID '{' GET ';' SET ';' '}'
+variableAndMethodsGetSet : modifierType csharpType ID '{' GET ';' SET ';' '}'
                          ;
 
-//adicionar os tipos de variaveis que podem ser criadas
-parametersType: 'int'
-              | 'string'
-              | 'bool'
-              | 'decimal'
-              | 'object'
-              ;
 
-methodParameters: parametersType multipleVariable(',' parametersType multipleVariable)?
+methodParameters: csharpType multipleVariable(',' csharpType multipleVariable)?
                 ;
 
 methodClass: multipleVariable'(' ')'

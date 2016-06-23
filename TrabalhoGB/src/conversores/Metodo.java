@@ -31,9 +31,11 @@ public class Metodo {
 
     public String render(){
         StringBuffer buffer = new StringBuffer();
-        buffer.append("\t");
+        buffer.append("\n\t");
 
-        if(this.tipoRetorno.isEmpty()){
+        boolean ehConstrutor = this.tipoRetorno.isEmpty();
+
+        if(ehConstrutor){
             buffer.append("constructor");
         }else{
             buffer.append(this.tipoMetodo);
@@ -51,11 +53,26 @@ public class Metodo {
             incluirVirgula = true;
         }
         buffer.append(")");
-        if(this.tipoRetorno.isEmpty()){
-            buffer.append(" : ");
+
+        if(!ehConstrutor){
+            buffer.append(": ");
             buffer.append(this.tipoRetorno);
         }
-        buffer.append(" { }\n");
+
+        buffer.append(" { ");
+
+        if(ehConstrutor){
+            if(!this.parametros.isEmpty()){
+                buffer.append("\n");
+                for (Parametro parametro: this.parametros) {
+                    buffer.append("\t\tthis._" + parametro.getNome());
+                    buffer.append(" = " + parametro.getNome());
+                    buffer.append(";\n");
+                }
+                buffer.append("\t");
+            }
+        }
+        buffer.append("}\n");
         return buffer.toString();
     }
 }

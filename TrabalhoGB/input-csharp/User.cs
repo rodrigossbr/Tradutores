@@ -21,5 +21,12 @@ namespace input-csharp{
       Email = email;
       Password = password;
     }
+
+    public User(string name, string email, string password, List<UserContact> contacts){
+          Name = name;
+          Email = email;
+          Password = password;
+          Contacts = contacts;
+    }
   }
 }

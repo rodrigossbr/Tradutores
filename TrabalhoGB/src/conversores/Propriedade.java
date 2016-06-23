@@ -25,30 +25,39 @@ public class Propriedade {
         this.tipoRetorno = tipoRetorno;
     }
 
+    public String getNomeToLower(){
+        char firstToLower[] = this.nome.toCharArray();
+        firstToLower[0] = Character.toLowerCase(firstToLower[0]);
+        return new String(firstToLower);
+    }
+
     public String getAtributeRender(){
-        return "\tprivate _" + this.nome.toLowerCase() + ": " + TipoEquivalente.tipoEquivalente(this.tipoRetorno) + ";\n";
+
+        return "\tprivate _" + this.getNomeToLower() + ": " + TipoEquivalente.tipoEquivalente(this.tipoRetorno) + ";\n";
     }
 
     public String render(){
         StringBuffer buffer = new StringBuffer();
+        String firstToLower = this.getNomeToLower();
+
         if(this.get) {
             buffer.append("\n\t");
             buffer.append("get ");
-            buffer.append(this.nome.toLowerCase());
+            buffer.append(firstToLower);
             buffer.append("(): ");
             buffer.append(TipoEquivalente.tipoEquivalente(this.tipoRetorno));
             buffer.append(" {\n");
-            buffer.append("\t\treturn this._" + this.nome.toLowerCase() + ";");
+            buffer.append("\t\treturn this._" + firstToLower + ";");
             buffer.append("\n\t}");
         }
 
         if(this.set) {
             buffer.append("\n\t");
             buffer.append("set ");
-            buffer.append(this.nome.toLowerCase());
+            buffer.append(firstToLower);
             buffer.append("(value: " + TipoEquivalente.tipoEquivalente(this.tipoRetorno) + ")");
             buffer.append(" {\n");
-            buffer.append("\t\tthis._" + this.nome.toLowerCase() + " = value;");
+            buffer.append("\t\tthis._" + firstToLower + " = value;");
             buffer.append("\n\t}");
         }
         return buffer.toString();
